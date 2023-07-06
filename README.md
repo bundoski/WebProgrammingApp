@@ -17,7 +17,9 @@ so anything that is added/deleted/edited on the application will be updated in t
 
 Functionalities:
 Add a new course, and also Edit, delete or show students attending (available if you click All Courses on the Courses page.)
-![image](https://github.com/bundoski/WebProgrammingApp/assets/93097556/0e20b2d9-b806-4304-bb40-e75d0fc05af3)
+![image](https://github.com/bundoski/WebProgrammingApp/assets/93097556/9e21c5e7-cfac-45e0-b3f8-f813e72f5586)
+![image](https://github.com/bundoski/WebProgrammingApp/assets/93097556/e41a531b-4d98-4a55-a732-dcc46e592500)
+
 
 Show All Students and List Courses, which list which courses does the student take.
 ![image](https://github.com/bundoski/WebProgrammingApp/assets/93097556/b1fee7d0-7322-4a0d-9d7c-161a44ab987c)
