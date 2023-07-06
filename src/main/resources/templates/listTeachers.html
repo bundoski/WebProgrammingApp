@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WP lab - Students in Course</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body class="container bg-light bg-gradient">
+<!-- NAVBAR  -->
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand"  th:href="@{/courses}">
+        <div class="text-dark">Courses</div>
+    </a>
+
+    <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="zaNas.html">Profile</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="proekti.html">Messages</a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/logout}" th:if="${#request.getRemoteUser() != null}" class="btn btn-danger">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<header style="background-color:#eaf3fd; margin-bottom:40px;" class="row mt-3 p-3">
+    <h1  class="col-md-12 text-dark text-center">Faculty Teachers</h1>
+</header>
+
+<div class="mt-5 mb-5">
+    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/teachers/add-form}" class="btn btn-dark mr-1">Add new teacher</a>
+    <a th:href="@{/courses}" class="btn btn-dark">Back to courses</a>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Date of Employment</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="teacher : ${teachers}">
+        <th scope="row"></th>
+        <td><th:block th:text="${teacher.getName()}"></th:block></td>
+        <td><th:block th:text="${teacher.getSurname()}"></th:block></td>
+        <td><th:block th:text="${teacher.getDateOfEmployment()}"></th:block></td>
+        <td>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/teachers/edit-form/{id}' (id=${teacher.getId()})}"
+               class="btn btn-sm btn-info"><i class="fa fa-trash">Edit</i></a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/teachers/delete/{id}' (id=${teacher.getId()})}" class="btn btn-sm btn-danger"><i
+                    class="fa fa-trash">Delete</i></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    const table = document.getElementsByTagName('table')[0],
+        rows = table.getElementsByTagName('tr'),
+        text = 'textContent' in document ? 'textContent' : 'innerText';
+
+    for (let i = 1, len = rows.length; i < len; i++) {
+        rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
+    }
+</script>
+</body>
+</html>

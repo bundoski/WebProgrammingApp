@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a New Student Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body class="container bg-light bg-gradient">
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand"  th:href="@{/courses}">
+        <div class="text-dark">Courses</div>
+    </a>
+
+    <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="zaNas.html">Profile</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="proekti.html">Messages</a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/logout}" th:if="${#request.getRemoteUser() != null}" class="btn btn-danger">Logout</a>
+                <a th:href="@{/login}" th:if="${#request.getRemoteUser() == null}" class="btn btn-warning">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<header style="background-color:#eaf3fd; margin-bottom:40px;" class="row mt-3 p-3">
+    <h1 class="col-md-12 text-dark text-center">Student Enrollment - Create a New Student </h1>
+</header>
+
+<section class="container mt-5">
+
+    <form class="col-md-3" th:method="POST" th:action="@{/students/add}">
+
+        <div class="form-group">
+            <label class="form-label" for='username'>Username:</label>
+            <input class="form-control" id='username' type='text' name='username'/>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for='password'>Password:</label>
+            <input class="form-control" id='password' type='password' name='password'/>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for='name'>Name:</label>
+            <input class="form-control" id='name' type='text' name='name'/>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for='surname'>Surname:</label>
+            <input class="form-control" id='surname' type='text' name='surname'/>
+        </div>
+
+        <input class="btn btn-primary mt-3" type='submit' value='Submit'/>
+    </form>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

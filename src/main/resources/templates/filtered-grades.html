@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WP lab - Students in Course</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body class="container bg-light bg-gradient">
+
+<header class="row mt-3 p-3 bg-primary bg-gradient">
+    <h1 class="col-md-12 text-light text-center">Students in Course </h1>
+</header>
+
+<section class="container mt-5">
+
+    <div class="h2 mb-3"><th:block th:text="${course.getName()}"></th:block></div>
+
+    <ul class="list-group col-md-4 mb-3" th:each="grade : ${students_grades}">
+        <li class="list-group-item">
+            <th:block th:text="${grade.getStudent().getName()}" ></th:block>
+            <th:block th:text="${grade.getStudent().getSurname()}"></th:block>
+            <span>(<th:block th:text="${grade.getStudent().getUsername()}"></th:block>)</span>
+            <span><th:block th:text="${grade.getGrade()}"></th:block></span>
+            <!--
+            <a th:href="@{'/grades/add-grade/{id}' (id=${grade.getStudent().getUsername()})}" class="btn btn-sm btn-dark"><i class="fa fa-trash">Grade</i></a>
+            -->
+        </li>
+    </ul>
+
+    <div>
+    <span>
+      <label for="fromDate">From: </label>
+      <input id="fromDate" name="fromDate" type="datetime-local"/>
+    </span>
+        <span>
+      <label for="toDate">To: </label>
+      <input id="toDate" name="toDate" type="datetime-local"/>
+    </span>
+    </div>
+
+    <a class="btn btn-primary mt-3" href="/courses">Back</a>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

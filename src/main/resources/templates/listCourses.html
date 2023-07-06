@@ -1,0 +1,230 @@
+    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" />
+    <title>Welcome and Choose a Course</title>
+</head>
+
+<body style="background-color:#f6f6f6;" class="container bg-gradient">
+
+<!-- NAVBAR  -->
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand"  th:href="@{/courses}">
+        <div class="text-dark">Courses</div>
+    </a>
+
+    <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="zaNas.html">Profile</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="proekti.html">Messages</a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/logout}" th:if="${#request.getRemoteUser() != null}" class="btn btn-danger">Logout</a>
+                <a th:href="@{/login}" th:if="${#request.getRemoteUser() == null}" class="btn btn-warning">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<hr style="background-color:black;">
+<header style="background-color:#eaf3fd; margin-bottom:40px;" class="row mt-3 p-3">
+    <h1 class="col-md-12 text-dark text-center">Courses System of FCSE</h1>
+    <div class="form-group text-center">
+        <!--        <ul class="list-group">-->
+        <!--            <li class="list-group-item m-1" style="background-color:#BDCEDA; width: 550px" th:each="course : ${list_of_courses}">-->
+        <!--                <div style="display: inline-block; width: 250px">-->
+        <!--                    <span><th:block th:text="${course.getName()}"></th:block></span>-->
+        <!--                </div>-->
+        <!--                <div style="display: inline-block; width: 225px; float: right">-->
+        <!--                    <a sec:authorize="hasRole('ROLE_ADMIN')"-->
+        <!--                       th:href="@{'/courses/edit-form/{id}' (id=${course.getCourseId()})}"-->
+        <!--                       class="btn btn-sm btn-info"><i class="fa fa-trash">Edit</i></a>-->
+        <!--                    <a sec:authorize="hasRole('ROLE_ADMIN')"-->
+        <!--                       th:href="@{'/courses/delete/{id}' (id=${course.getCourseId()})}" class="btn btn-sm btn-danger"><i-->
+        <!--                            class="fa fa-trash">Delete</i></a>-->
+        <!--                    <a sec:authorize="hasRole('ROLE_ADMIN')"-->
+        <!--                       th:href="@{/courses/listStudents(id=${course.getCourseId()})}" class="btn btn-sm btn-dark"><i-->
+        <!--                            class="fa fa-trash">Show Students</i></a>-->
+        <!--                </div>-->
+        <!--            </li>-->
+        <!--        </ul>-->
+
+        <div class="mt-3" th:if="${hasError}">
+            <span th:text="${errorMessage}" class="text-danger"></span>
+        </div>
+
+        <div  style="width: 600px; margin-left:260px;" class="mt-3">
+            <a th:href="@{/courses/add-form}" class="btn btn-dark mr-2" sec:authorize="hasRole('ROLE_ADMIN')">
+                Add new course</a>
+            <a th:href="@{/students}" class="btn btn-dark mr-2" sec:authorize="hasRole('ROLE_ADMIN')">
+                Show all students</a>
+            <a th:href="@{/teachers}" class="btn btn-dark mr-2" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+                Show all teachers</a>
+        </div>
+    </div>
+</header>
+
+<main class="row mt-5">
+    <!--
+    <div><th:block th:text="${numOfUsers}"></th:block></div>
+    -->
+    <div id="accordion">
+        <div style="background-color:#eaf3fd" class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        All Courses
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item m-1" style="background-color:#ffffff; width: 550px" th:each="course : ${list_of_courses}">
+                            <div style="display: inline-block; width: 250px">
+                                <span><th:block th:text="${course.getName()}"></th:block></span>
+                            </div>
+                            <div style="display: inline-block; width: 225px; float: right">
+                                <a sec:authorize="hasRole('ROLE_ADMIN')"
+                                   th:href="@{'/courses/edit-form/{id}' (id=${course.getCourseId()})}"
+                                   class="btn btn-sm btn-info"><i class="fa fa-trash">Edit</i></a>
+                                <a sec:authorize="hasRole('ROLE_ADMIN')"
+                                   th:href="@{'/courses/delete/{id}' (id=${course.getCourseId()})}" class="btn btn-sm btn-danger"><i
+                                        class="fa fa-trash">Delete</i></a>
+                                <a sec:authorize="hasRole('ROLE_ADMIN')"
+                                   th:href="@{/courses/listStudents(id=${course.getCourseId()})}" class="btn btn-sm btn-dark"><i
+                                        class="fa fa-trash">Show Students</i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="background-color:#eaf3fd" class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-dark collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Consultations
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div style="background-color:#eaf3fd;" class="card-body">
+                    <a style="margin-bottom:15px;" class="btn btn-info">Dimitar Trajanov</a>
+                    <div>Regular consultations are updated here.To confirm your attendance send a mail<br>at
+                    mailTo@mail.com</div>
+                    <br>
+                    <a style="margin-bottom:15px;" class="btn btn-info">Sasho Gramatikov</a>
+                    <div>Regular consultations are updated here.To confirm your attendance send a mail<br>at
+                        mailTo@mail.com</div>
+                    <br>
+                    <a style="margin-bottom:15px;" class="btn btn-info">Igor Mishkovski</a>
+                    <div>Regular consultations are updated here.To confirm your attendance send a mail<br>at
+                        mailTo@mail.com</div>
+                    <br>
+                    <a style="margin-bottom:15px;" class="btn btn-info">Riste Stojanov</a>
+                    <div>Regular consultations are updated here.To confirm your attendance send a mail<br>at
+                        mailTo@mail.com</div>
+                    <br>
+                    <a style="margin-bottom:15px;" class="btn btn-info">Vlatko Spasev</a>
+                    <div>Regular consultations are updated here.To confirm your attendance send a mail<br>at
+                        mailTo@mail.com</div>
+                    <br>
+                    <a style="margin-bottom:15px;" class="btn btn-info">Ana Todorovska</a>
+                    <div>Regular consultations are updated here.To confirm your attendance send a mail<br>at
+                        mailTo@mail.com</div>
+                    <br>
+                    <a style="margin-bottom:15px;" class="btn btn-info">Stefan Andonov</a>
+                    <div>Regular consultations are updated here.To confirm your attendance send a mail<br>at
+                        mailTo@mail.com</div>
+                    <br>
+                    <a style="margin-bottom:15px;" class="btn btn-info">Marija Mihova</a>
+                    <div>Regular consultations are updated here.To confirm your attendance send a mail<br>at
+                        mailTo@mail.com</div>
+                    <br>
+                    <a style="margin-bottom:15px;" class="btn btn-info">Vesna Dimitrova</a>
+                    <div>Regular consultations are updated here.To confirm your attendance send a mail<br>at
+                        mailTo@mail.com</div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div style="background-color:#eaf3fd" class="card">
+            <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                    <button class="btn btn-dark collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Posts and News
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    <button style="margin-bottom:15px;" class="btn btn-info">News</button>
+                    <div>Regular news are updated here.You can check it here or our official webpage at<br>finki.ukim.mk</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <div class="form-group">-->
+<!--&lt;!&ndash;        <ul class="list-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="list-group-item m-1" style="background-color:#BDCEDA; width: 550px" th:each="course : ${list_of_courses}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div style="display: inline-block; width: 250px">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span><th:block th:text="${course.getName()}"></th:block></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div style="display: inline-block; width: 225px; float: right">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a sec:authorize="hasRole('ROLE_ADMIN')"&ndash;&gt;-->
+<!--&lt;!&ndash;                       th:href="@{'/courses/edit-form/{id}' (id=${course.getCourseId()})}"&ndash;&gt;-->
+<!--&lt;!&ndash;                       class="btn btn-sm btn-info"><i class="fa fa-trash">Edit</i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a sec:authorize="hasRole('ROLE_ADMIN')"&ndash;&gt;-->
+<!--&lt;!&ndash;                       th:href="@{'/courses/delete/{id}' (id=${course.getCourseId()})}" class="btn btn-sm btn-danger"><i&ndash;&gt;-->
+<!--&lt;!&ndash;                            class="fa fa-trash">Delete</i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a sec:authorize="hasRole('ROLE_ADMIN')"&ndash;&gt;-->
+<!--&lt;!&ndash;                       th:href="@{/courses/listStudents(id=${course.getCourseId()})}" class="btn btn-sm btn-dark"><i&ndash;&gt;-->
+<!--&lt;!&ndash;                            class="fa fa-trash">Show Students</i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;        </ul>&ndash;&gt;-->
+
+<!--        <div class="mt-3" th:if="${hasError}">-->
+<!--            <span th:text="${errorMessage}" class="text-danger"></span>-->
+<!--        </div>-->
+
+<!--        <div style="width: 600px" class="mt-3">-->
+<!--            <a th:href="@{/courses/add-form}" class="btn btn-dark mr-2" sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                Add new course</a>-->
+<!--            <a th:href="@{/students}" class="btn btn-dark mr-2" sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                Show all students</a>-->
+<!--            <a th:href="@{/teachers}" class="btn btn-dark mr-2" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">-->
+<!--                Show all teachers</a>-->
+<!--            <a th:href="@{/login}" th:if="${#request.getRemoteUser() == null}" class="btn btn-warning">Login</a>-->
+<!--            <a th:href="@{/logout}" th:if="${#request.getRemoteUser() != null}" class="btn btn-danger">Logout</a>-->
+<!--        </div>-->
+<!--    </div>-->
+</main>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+
+</html>
